@@ -12,6 +12,9 @@ emitted by `<UiStyles/>`.
 | `Modal`       | Overlay driven by an `RwSignal<bool>`; closes on click-outside, the x button, or Escape.                                              |
 | `Card`        | Bordered surface panel. `class` adds the app's own utilities.                                                                         |
 | `Eyebrow`     | Small uppercase label above a heading.                                                                                                |
+| `Checkbox`    | Token-drawn checkbox that takes the surrounding accent and pops when ticked. Wrap it in a `<label>` with its text.                   |
+| `Toast`       | Handle for short messages at the bottom of the screen; `show` replaces the current one, which hides itself after a few seconds.       |
+| `Toaster`     | Where a `Toast`'s messages appear. Render once per page.                                                                              |
 | `Prose`       | One `<p>` per blank-line-separated paragraph. `paragraphs` and `single_line` are the underlying helpers.                              |
 | `HashScroll`  | Restores scroll-to-anchor for `#` links under `leptos_router`. Render once inside `<Router>`.                                         |
 | `use_now`     | A signal holding the current time in ms, ticking each second and resyncing when the tab is shown again.                               |
@@ -20,7 +23,7 @@ emitted by `<UiStyles/>`.
 
 ```toml
 [dependencies]
-leptos-ui-components = { git = "https://github.com/yusefkarim/leptos-ui-components.git", tag = "v0.1.0" }
+leptos-ui-components = { git = "https://github.com/yusefkarim/leptos-ui-components.git", tag = "v0.2.0" }
 
 [features]
 hydrate = ["leptos/hydrate", "ui/hydrate", ...]
@@ -48,10 +51,19 @@ The components read these CSS custom properties and define none of them:
 | `--color-paper`   | page background (modal backdrop) |
 | `--color-surface` | card and modal panel background  |
 | `--color-line`    | borders                          |
+| `--color-ink`     | toast background                 |
 | `--color-mute`    | secondary text, icon color       |
-| `--color-accent`  | eyebrow text, hover states       |
+| `--color-accent`  | eyebrow text, hover states, checkbox |
 | `--font-mono`     | eyebrow and close button         |
-| `--shadow-soft`   | modal panel shadow               |
+| `--shadow-soft`   | modal panel and toast shadow     |
+
+These are optional, with defaults that keep the original look:
+
+| Property            | Default                  | Used for                                              |
+| ------------------- | ------------------------ | ----------------------------------------------------- |
+| `--ui-radius`       | `0.25rem`                | corners of cards, the modal, buttons and toasts; the checkbox goes round at `0.75rem` or more |
+| `--ui-eyebrow-font` | `var(--font-mono)`       | eyebrow text                                          |
+| `--color-on-accent` | `var(--color-paper)`     | the tick inside a checked checkbox                    |
 
 Define them on `:root` with the dark values, and put the light values under
 `:root[data-theme="light"]`. `ThemeScript` always sets `data-theme`, and the toggle's icons
