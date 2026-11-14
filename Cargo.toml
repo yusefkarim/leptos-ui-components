@@ -1,0 +1,27 @@
+[package]
+name = "leptos-ui-components"
+version = "0.1.0"
+edition = "2021"
+description = "Shared Leptos components with self-contained styles"
+license = "MIT"
+
+[dependencies]
+leptos = "0.8"
+leptos_router = "0.8"
+time = "0.3"
+
+# Left unpinned so the consuming app's exact wasm-bindgen pin decides the version.
+wasm-bindgen = { version = "0.2", optional = true }
+web-sys = { version = "0.3", optional = true, features = ["Storage"] }
+js-sys = { version = "0.3", optional = true }
+send_wrapper = { version = "0.6", optional = true }
+
+[features]
+hydrate = [
+    "leptos/hydrate",
+    "dep:wasm-bindgen",
+    "dep:web-sys",
+    "dep:js-sys",
+    "dep:send_wrapper",
+]
+ssr = ["leptos/ssr", "leptos_router/ssr"]
